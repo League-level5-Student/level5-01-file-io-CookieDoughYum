@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-public class IntroToFileIO {
+public class IntroToFileIO2 {
 	public static void main(String[] args) {
 		
 		//Read from a file one character at a time
