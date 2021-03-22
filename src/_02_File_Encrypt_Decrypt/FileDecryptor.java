@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class FileDecryptor {
 	/*
@@ -28,11 +29,12 @@ public class FileDecryptor {
 	 */
 	public static void main(String[] args) {
 		ArrayList<Character> decryptedCharacters=new ArrayList<Character>();
+		ArrayList<Character> messageDecrypt=new ArrayList<Character>();
 		try {
 			FileReader fr = new FileReader("src/_02_File_Encrypt_Decrypt/EncryptedMessage.txt");
 			int c = fr.read();
 			while(c != -1){
-				decryptedCharacters.add(char(c));
+				decryptedCharacters.add((char) c);
 				c = fr.read();
 			}
 			fr.close();
@@ -41,6 +43,17 @@ public class FileDecryptor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		for(int i=0; i<decryptedCharacters.size(); i++) {
+			char c=decryptedCharacters.get(i);
+			try {
+				c=decryptedCharacters.get((i+decryptedCharacters.size()-4));
+			}
+			catch(IndexOutOfBoundsException e) {
+				c=decryptedCharacters.get(i-4);
+			}
+			messageDecrypt.add(c);
+		}
+		JOptionPane.showMessageDialog(null, "The decrypted message is" + messageDecrypt);
 		
 		
 	}

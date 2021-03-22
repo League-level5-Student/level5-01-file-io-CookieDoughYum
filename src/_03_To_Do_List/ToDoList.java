@@ -3,6 +3,9 @@ package _03_To_Do_List;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ToDoList implements ActionListener{
+	ArrayList<String> tasks=new ArrayList<String>();
 	/*
 	 * Create a program with five buttons, add task, view tasks, remove task, save list, and load list. 
 	 *
@@ -46,6 +50,13 @@ public class ToDoList implements ActionListener{
 		t.GUI();
     }
     public void GUI() {
+    	frame.setVisible(true);
+    	frame.add(panel);
+    	panel.add(button);
+    	panel.add(button1);
+    	panel.add(button2);
+    	panel.add(button3);
+    	panel.add(button4);
     	button.addActionListener(this);
     	button1.addActionListener(this);
     	button2.addActionListener(this);
@@ -56,14 +67,14 @@ public class ToDoList implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		ArrayList<String> tasks=new ArrayList<String>();
+		
 		if(arg0.getSource()==button) {
 			String task=JOptionPane.showInputDialog("Enter a task");
 			tasks.add(task);
 		}
 		if(arg0.getSource()==button1) {
 			for(int i=0; i<tasks.size(); i++) {
-				System.out.println(tasks.get(i));
+				JOptionPane.showMessageDialog(null, tasks.get(i));
 			}
 		}
 		if(arg0.getSource()==button2) {
@@ -73,7 +84,9 @@ public class ToDoList implements ActionListener{
 		if(arg0.getSource()==button3) {
 			try {
 				FileWriter fw = new FileWriter("src/_03_To_Do_List/Task.txt", true);
-				fw.write(tasks.size());
+				for(int i=0; i<tasks.size(); i++) {
+				fw.write(tasks.get(i));
+				}
 				fw.close();
 			}
 			catch (IOException e) {
@@ -81,7 +94,25 @@ public class ToDoList implements ActionListener{
 			}
 		}
 		if(arg0.getSource()==button4) {
-			String list=JOptionPane.showInputDialog("from which file would you like to load the list from?");
+			String list=JOptionPane.showInputDialog("From which file would you like to load the list from?");
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(list));
+				
+				String line = br.readLine();
+				while(line != null){
+					JOptionPane.showMessageDialog(null, line);
+					line = br.readLine();
+				}
+				
+				br.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 }
