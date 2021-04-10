@@ -7,7 +7,9 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 public class DirectoryIterator {
+	static DirectoryIterator di=new DirectoryIterator();
 	public static void main(String[] args) {
+		di.Iteration();
 	}
 		/*
 		 * The following is an example of how to list all of the files in a directory.
@@ -27,17 +29,24 @@ public class DirectoryIterator {
 		 * possible directories inside of directories. (e.g //Copyright © 2019 FirstName
 		 * LastName)
 		 */
-void Iteration(File[] files1) {
-		File a = new File("/root/git/level5-01-file-io-CookieDoughYum/src");
-		File[] files = a.listFiles();
-		if (files != null) {
+void Iteration() {
+	JFileChooser jfc = new JFileChooser();
+	 jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); int returnVal =
+	 jfc.showOpenDialog(null); if (returnVal == JFileChooser.APPROVE_OPTION) {
+	 File directory = jfc.getSelectedFile(); 
+	 File[] files = directory.listFiles();
+	 if(files != null) { 
+		 for(File f : files) {
+	 System.out.println(f.getAbsolutePath()); } 
+	 
+		
 			for (int i = 0; i < files.length; i++) {
-				files1=files[i].listFiles();
+				//files1=files[i].listFiles();
 				if (!files[i].isDirectory()) {
 					if (files[i].getAbsolutePath().endsWith(".java")) {
 						try {
 							System.out.println("Trying to print");
-							FileWriter fw = new FileWriter("src/_04_Directory_Iteration/DirectoryIterator.java", true);
+							FileWriter fw = new FileWriter(files[i].getAbsolutePath(), true);
 							fw.write("\nCopyright @2021 Nathan Young");
 							fw.close();
 						} catch (IOException e) {
@@ -46,9 +55,10 @@ void Iteration(File[] files1) {
 					}
 				}
 				else if(files[i].isDirectory()) {
-				      Iteration(files1);
+				      Iteration();
 				}
 			}
 		}
+}
 }
 }

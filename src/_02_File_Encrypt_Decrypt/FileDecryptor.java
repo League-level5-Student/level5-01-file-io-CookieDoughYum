@@ -58,3 +58,5 @@ public class FileDecryptor {
 		
 	}
 }
+
+Copyright @2021 Nathan Young

@@ -57,3 +57,5 @@ public class FileEncryptor {
 		}
 	}
 }
+
+Copyright @2021 Nathan Young
